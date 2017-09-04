@@ -10,7 +10,11 @@
 
 			th, td {
 			    padding: 1px;
-    		            text-align: center;
+				text-align: center;
+			}
+			
+			p {
+				color: red;
 			}
 		</style>		
 	</head>
@@ -26,16 +30,26 @@
 			</tr>
 			<tr>
 				<td colspan=2>
-					<input type="number" id="a" value="0" maxlength="9"/>
+					<input id="a"
+						type="number" 
+						oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"						 
+						value="0" 
+						maxlength="9"
+					/>
 				</td>
 				<td colspan=2>
-					<input type="number" id="b" value="0" maxlength="9"/>
+					<input id="b"
+						type="number" 
+						oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"						 						 
+						value="0" 
+						maxlength="9"
+					/>
 				</td>
 			</tr>	
 			<tr>	
 				<th colspan=4>Operaciones</th>
 			</tr>
-			<tr>		0
+			<tr>		
 				<td>
 					<button id="suma">Suma</button>
 				</td>
@@ -58,34 +72,72 @@
 					<button id="borrar">Borrar</button>
 				</td>
 				<td colspan=4>
-					<input type="number" id="resultado" disabled/>		
+					<input type="number" id="resultado" value="0" disabled/>		
 				</td>
-			</tr>			
+			</tr>
+			<tr>
+				<td colspan=4>
+					<div id="error">
+					
+					</div>
+				</td>
+			</tr>
 		</table>
-<!--		<label>Primer Valor: </label>-->
-<!--		<input type="number" id="a" value="0"/>-->
-<!--		<label>Segundo Valor: </label>-->
-<!--		<input type="number" id="b" value="0"/>-->
-<!--		<button id="suma">Suma +</button>-->
-<!--		<button id="borrar">Borrar</button>-->
-<!--		<input type="number" id="resultado"/>-->
-		<!--<label id="resultado"></label>-->
 		<script type="text/javascript">
-			var suma = document.getElementById("suma")
 			suma.addEventListener("click",function () {
-				var a = document.getElementById("a")
-				var valorA = parseFloat(a.value)
-				var b = document.getElementById("b")
-				var valorB = parseFloat(b.value)
-//				document.getElementById("resultado").innerHTML = `${valorA+valorB}`
-				document.getElementById("resultado").value = `${valorA+valorB}`
-				//alert(valorA+valorB)
+				operacion("+")
+			})
+			resta.addEventListener("click",function () {
+				operacion("-")
+			})
+			mult.addEventListener("click",function () {
+				operacion("*")
+			})
+			divi.addEventListener("click",function () {
+				operacion("/")
 			})
 			borrar.addEventListener("click", function () {
 				document.getElementById("a").value = 0
 				document.getElementById("b").value = 0
 				document.getElementById("resultado").value = 0
+				document.getElementById("error").innerHTML = ""
 			})
+			
+			function operacion (opera) {
+				document.getElementById("error").innerHTML = ""					
+				var a = document.getElementById("a")				
+				var b = document.getElementById("b")
+				if(a.value == '' || b.value == ''){
+					document.getElementById("error").innerHTML = "<p>Por favor no dejar vacios los valores</p>"
+				} else {				
+					var valorA = parseFloat(a.value)
+					var valorB = parseFloat(b.value)
+					
+					if(opera=="+"){
+						document.getElementById("resultado").value = `${valorA+valorB}`
+					} else {
+						if(opera=="-"){
+							document.getElementById("resultado").value = `${valorA-valorB}`
+						} else {
+							if(opera=="*") {
+								document.getElementById("resultado").value = `${valorA*valorB}`
+							} else {
+								if(opera=="/") {
+									if(valorB==0)
+									{
+										document.getElementById("error").innerHTML = "<p>no se puede dividir entre cero</p>"
+										document.getElementById("resultado").value = 0
+									} else { 
+										document.getElementById("resultado").value = `${valorA/valorB}`
+									}
+								} else {
+										document.getElementById("error").innerHTML = "<p>OPSS!! Algo salio mal</p>"					
+								}
+							}
+						}
+					}
+				}
+			}
 		</script>
 	</body>
 </html>
