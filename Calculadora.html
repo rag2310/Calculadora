@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Calculadora</title>
+		<style>
+			table, th, td {
+				border: 1px solid black;
+    				border-collapse: collapse;
+			}
+
+			th, td {
+			    padding: 1px;
+    		            text-align: center;
+			}
+		</style>		
+	</head>
+	<body>
+
+		<table>
+			<tr>
+				<th colspan=4>Calculadora</th>
+			</tr>
+			<tr>
+				<th colspan=2>Valor</th>
+				<th colspan=2>Valor</th>
+			</tr>
+			<tr>
+				<td colspan=2>
+					<input type="number" id="a" value="0" maxlength="9"/>
+				</td>
+				<td colspan=2>
+					<input type="number" id="b" value="0" maxlength="9"/>
+				</td>
+			</tr>	
+			<tr>	
+				<th colspan=4>Operaciones</th>
+			</tr>
+			<tr>		0
+				<td>
+					<button id="suma">Suma</button>
+				</td>
+				<td>
+					<button id="resta">Resta</button>
+				</td>
+				<td>
+					<button id="mult">Multiplicar</button>
+				</td>
+				<td>
+					<button id="divi">Division</button>
+				</td>
+			</tr>	
+			<tr>	
+				<th colspan=1>Limpiar</th>
+				<th colspan=3>Resultado</th>
+			</tr>
+			<tr>		
+				<td>
+					<button id="borrar">Borrar</button>
+				</td>
+				<td colspan=4>
+					<input type="number" id="resultado" disabled/>		
+				</td>
+			</tr>			
+		</table>
+<!--		<label>Primer Valor: </label>-->
+<!--		<input type="number" id="a" value="0"/>-->
+<!--		<label>Segundo Valor: </label>-->
+<!--		<input type="number" id="b" value="0"/>-->
+<!--		<button id="suma">Suma +</button>-->
+<!--		<button id="borrar">Borrar</button>-->
+<!--		<input type="number" id="resultado"/>-->
+		<!--<label id="resultado"></label>-->
+		<script type="text/javascript">
+			var suma = document.getElementById("suma")
+			suma.addEventListener("click",function () {
+				var a = document.getElementById("a")
+				var valorA = parseFloat(a.value)
+				var b = document.getElementById("b")
+				var valorB = parseFloat(b.value)
+//				document.getElementById("resultado").innerHTML = `${valorA+valorB}`
+				document.getElementById("resultado").value = `${valorA+valorB}`
+				//alert(valorA+valorB)
+			})
+			borrar.addEventListener("click", function () {
+				document.getElementById("a").value = 0
+				document.getElementById("b").value = 0
+				document.getElementById("resultado").value = 0
+			})
+		</script>
+	</body>
+</html>
